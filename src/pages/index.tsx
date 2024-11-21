@@ -34,21 +34,10 @@ export function Index(props: RouteComponentProps) {
           <Box as="h1" sx={{m: 0, mx: 2, fontSize: 3, fontWeight: 'bold'}}>
             Primer Prism
           </Box>
-          <Label variant="attention">Experimental</Label>
         </Box>
         <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <PrimerLink
-            muted
-            href="https://github.com/primer/prism"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{mr: 4, '&:hover': {textDecoration: 'underline'}}}
-          >
-            GitHub
-            <StyledOcticon icon={LinkExternalIcon} sx={{marginLeft: 1}} />
-          </PrimerLink>
           <PrimerIconButton
-            aria-label="Create new palette"
+            aria-label="创建新调色板"
             icon={PlusIcon}
             onClick={() => send('CREATE_PALETTE')}
             sx={{margin: 0}}
@@ -141,7 +130,7 @@ export function Index(props: RouteComponentProps) {
                 </Text>
               </Box>
               <IconButton
-                aria-label="Delete palette"
+                aria-label="删除调色板"
                 icon={TrashIcon}
                 onClick={() => {
                   send({type: 'DELETE_PALETTE', paletteId: palette.id})
@@ -189,13 +178,13 @@ export function Index(props: RouteComponentProps) {
             }}
           >
             <Heading as="h2" sx={{marginBottom: 1}}>
-              Welcome
+              欢迎使用
             </Heading>
             <Text sx={{marginBottom: 5, fontSize: 3, color: 'fg.muted'}}>
-              Primer Prism is a tool for creating cohesive, consistent, and accessible color palettes
+              Primer Prism 是一个用于创建和谐、一致且易于访问的调色板的工具
             </Text>
             <Button variant="primary" size="large" onClick={() => send('CREATE_PALETTE')}>
-              Create new palette
+              创建新调色板
             </Button>
           </Box>
         </Box>

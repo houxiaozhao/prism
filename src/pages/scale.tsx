@@ -34,7 +34,7 @@ export function Scale({
   if (!scale) {
     return (
       <div style={{padding: 16}}>
-        <p style={{marginTop: 0}}>Scale not found</p>
+        <p style={{marginTop: 0}}>未找到色阶</p>
       </div>
     )
   }
@@ -76,7 +76,7 @@ export function Scale({
               return (
                 <Button
                   key={type}
-                  aria-label={`Toggle ${type} curve visibility`}
+                  aria-label={`切换${type}曲线显示`}
                   aria-pressed={isVisible}
                   onClick={() => setVisibleCurves({...visibleCurves, [type]: !isVisible})}
                   style={{
@@ -91,13 +91,13 @@ export function Scale({
           <ButtonGroup>
             <IconButton
               icon={DashIcon}
-              aria-label="Remove color from end of scale"
+              aria-label="从色阶末尾移除颜色"
               onClick={() => send({type: 'POP_COLOR', paletteId, scaleId})}
               disabled={scale.colors.length === 1}
             />
             <IconButton
               icon={PlusIcon}
-              aria-label="Add color to end of scale"
+              aria-label="在色阶末尾添加颜色"
               onClick={() => {
                 send({type: 'CREATE_COLOR', paletteId, scaleId})
                 setIndex(scale.colors.length.toString())
@@ -248,7 +248,7 @@ export function Scale({
                   <Box
                     key={i}
                     as={Link}
-                    aria-label={`Go to ${currentScale.name} scale`}
+                    aria-label={`跳转到${currentScale.name}色阶`}
                     to={`${routePrefix}/local/${paletteId}/scale/${currentScale.id}`}
                     replace={true}
                     sx={{
@@ -287,15 +287,15 @@ export function Scale({
           paddingBottom: 16
         }}
       >
-        <SidebarPanel title="Scale">
+        <SidebarPanel title="色阶">
           <VStack spacing={16}>
             <VStack spacing={4}>
               <label htmlFor="name" style={{fontSize: 14}}>
-                Name
+                名称
               </label>
               <Input
                 type="text"
-                aria-label="Scale name"
+                aria-label="色阶名称"
                 value={scale.name}
                 onChange={event =>
                   send({
@@ -313,16 +313,16 @@ export function Scale({
                 navigate(`${routePrefix}/local/${paletteId}`)
               }}
             >
-              Delete scale
+              删除色阶
             </Button>
           </VStack>
         </SidebarPanel>
         <Separator />
-        <SidebarPanel title="Linked curves">
+        <SidebarPanel title="关联曲线">
           <VStack spacing={16}>
             <VStack spacing={4}>
               <label htmlFor="hue-curve" style={{fontSize: 14}}>
-                Hue curve
+                色相曲线
               </label>
               <div
                 style={{
@@ -345,7 +345,7 @@ export function Scale({
                     })
                   }
                 >
-                  <option value="">None</option>
+                  <option value="">无</option>
                   {Object.values(palette.curves)
                     .filter(curve => curve.type === 'hue')
                     .map(curve => (
@@ -355,7 +355,7 @@ export function Scale({
                     ))}
                 </Select>
                 <IconButton
-                  aria-label="Create hue curve"
+                  aria-label="创建色相曲线"
                   icon={PlusIcon}
                   onClick={() =>
                     send({
@@ -370,7 +370,7 @@ export function Scale({
             </VStack>
             <VStack spacing={4}>
               <label htmlFor="saturation-curve" style={{fontSize: 14}}>
-                Saturation curve
+                饱和度曲线
               </label>
               <div
                 style={{
@@ -393,7 +393,7 @@ export function Scale({
                     })
                   }
                 >
-                  <option value="">None</option>
+                  <option value="">无</option>
                   {Object.values(palette.curves)
                     .filter(curve => curve.type === 'saturation')
                     .map(curve => (
@@ -404,7 +404,7 @@ export function Scale({
                 </Select>
                 <IconButton
                   icon={PlusIcon}
-                  aria-label="Create saturation curve"
+                  aria-label="创建饱和度曲线"
                   onClick={() =>
                     send({
                       type: 'CREATE_CURVE_FROM_SCALE',
@@ -418,7 +418,7 @@ export function Scale({
             </VStack>
             <VStack spacing={4}>
               <label htmlFor="lightness-curve" style={{fontSize: 14}}>
-                Lightness curve
+                亮度曲线
               </label>
               <div
                 style={{
@@ -441,7 +441,7 @@ export function Scale({
                     })
                   }
                 >
-                  <option value="">None</option>
+                  <option value="">无</option>
                   {Object.values(palette.curves)
                     .filter(curve => curve.type === 'lightness')
                     .map(curve => (
@@ -451,7 +451,7 @@ export function Scale({
                     ))}
                 </Select>
                 <IconButton
-                  aria-label="Create lightness curve"
+                  aria-label="创建亮度曲线"
                   icon={PlusIcon}
                   onClick={() =>
                     send({
@@ -472,7 +472,7 @@ export function Scale({
             <Color paletteId={paletteId} scaleId={scaleId} index={index} />
             <Separator />
             {/* TODO: Pull this into a separate component */}
-            <SidebarPanel title={`Contrast of ${scale.name}.${index}`}>
+            <SidebarPanel title={`与${scale.name}.${index}的对比度`}>
               <Box
                 as="ul"
                 sx={{
@@ -486,7 +486,7 @@ export function Scale({
               >
                 {[
                   {
-                    name: 'bg',
+                    name: '背景',
                     hex: palette.backgroundColor,
                     contrast: getContrast(palette.backgroundColor, focusedHex || '')
                   },
@@ -529,7 +529,7 @@ export function Scale({
                       >
                         Aa
                       </Box>
-                      <span>on {name}</span>
+                      <span>在{name}上</span>
                     </Box>
                     <span>
                       <Text sx={{mr: 2}}>{contrast.toFixed(2)}</Text>

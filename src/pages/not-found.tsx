@@ -5,8 +5,8 @@ import {routePrefix} from '../constants'
 export function NotFound(props: RouteComponentProps) {
   return (
     <div style={{padding: 16}}>
-      <p style={{marginTop: 0}}>Page not found</p>
-      <Link to={`${routePrefix}/`}>Go home</Link>
+      <p style={{marginTop: 0}}>页面未找到</p>
+      <Link to={`${routePrefix}/`}>返回首页</Link>
     </div>
   )
 }

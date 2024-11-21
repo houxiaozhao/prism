@@ -50,8 +50,8 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
   if (!palette) {
     return (
       <div style={{padding: 16}}>
-        <p style={{marginTop: 0}}>Palette not found</p>
-        <Link to={`${routePrefix}/`}>Go home</Link>
+        <p style={{marginTop: 0}}>未找到调色板</p>
+        <Link to={`${routePrefix}/`}>返回首页</Link>
       </div>
     )
   }
@@ -87,14 +87,14 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
                 borderColor: 'var(--color-text)'
               }}
             >
-              Experimental
+              实验性
             </Label>
           </Text>
         </Link>
 
         <HStack spacing={8}>
           <IconButton
-            aria-label="Undo"
+            aria-label="撤销"
             icon={() => (
               // Custom undo icon
               <svg
@@ -116,10 +116,10 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
             onClick={() => send('UNDO')}
             disabled={state.context.past.length === 0}
           >
-            Undo
+            撤销
           </IconButton>
           <IconButton
-            aria-label="Redo"
+            aria-label="重做"
             icon={() => (
               // Custom redo icon
               <svg
@@ -173,11 +173,11 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
           paddingBottom: 16
         }}
       >
-        <SidebarPanel title="Palette">
+        <SidebarPanel title="调色板">
           <VStack spacing={16}>
             <VStack spacing={4}>
               <label htmlFor="palette-name" style={{fontSize: 14}}>
-                Name
+                名称
               </label>
               <Input
                 type="text"
@@ -217,11 +217,11 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
                 }
               />
               <label htmlFor="bg-color" style={{fontSize: 14}}>
-                Background color
+                背景颜色
               </label>
             </HStack>
             <Button
-              aria-label="Delete palette"
+              aria-label="删除调色板"
               onClick={() => {
                 send({type: 'DELETE_PALETTE', paletteId})
 
@@ -229,12 +229,12 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
                 navigate(`${routePrefix}/`)
               }}
             >
-              Delete palette
+              删除调色板
             </Button>
           </VStack>
         </SidebarPanel>
         <Separator />
-        <SidebarPanel title="Scales">
+        <SidebarPanel title="色阶">
           <VStack spacing={8}>
             {Object.values(palette.scales).map(scale => (
               <Link
@@ -275,11 +275,11 @@ export function Palette({paletteId = '', children}: React.PropsWithChildren<Rout
             ))}
           </VStack>
           <Button style={{marginTop: 16, width: '100%'}} onClick={() => send({type: 'CREATE_SCALE', paletteId})}>
-            New scale
+            新建色阶
           </Button>
         </SidebarPanel>
         <Separator />
-        <SidebarPanel title="Curves">
+        <SidebarPanel title="曲线">
           <VStack spacing={8}>
             {Object.values(palette.curves).map(curve => (
               <Link

@@ -30,7 +30,7 @@ export function Curve({paletteId = '', curveId = ''}: RouteComponentProps<{palet
   if (!curve) {
     return (
       <div style={{padding: 16}}>
-        <p style={{marginTop: 0}}>Curve not found</p>
+        <p style={{marginTop: 0}}>未找到曲线</p>
       </div>
     )
   }
@@ -95,7 +95,7 @@ export function Curve({paletteId = '', curveId = ''}: RouteComponentProps<{palet
           values={curve.values}
           {...ranges[curve.type]}
           onChange={values => send({type: 'CHANGE_CURVE_VALUES', paletteId, curveId, values})}
-          label={curve.type[0].toUpperCase()}
+          label={curve.type === 'hue' ? '色相' : curve.type === 'saturation' ? '饱和度' : '亮度'}
         />
       </ZStack>
       <VStack
@@ -107,21 +107,16 @@ export function Curve({paletteId = '', curveId = ''}: RouteComponentProps<{palet
           paddingBottom: 16
         }}
       >
-        <SidebarPanel
-          title={`${
-            // Capitalize first letter of curve type
-            curve.type[0].toLocaleUpperCase() + curve.type.slice(1)
-          } curve`}
-        >
+        <SidebarPanel title={`${curve.type === 'hue' ? '色相' : curve.type === 'saturation' ? '饱和度' : '亮度'}曲线`}>
           <VStack spacing={16}>
             <VStack spacing={4}>
               <label htmlFor="name" style={{fontSize: 14}}>
-                Name
+                名称
               </label>
               <Input
                 type="text"
                 id="name"
-                aria-label="Curve name"
+                aria-label="曲线名称"
                 value={curve.name}
                 onChange={event =>
                   send({
@@ -140,7 +135,7 @@ export function Curve({paletteId = '', curveId = ''}: RouteComponentProps<{palet
                 navigate(`${routePrefix}/local/${paletteId}`)
               }}
             >
-              Delete curve
+              删除曲线
             </Button>
           </VStack>
         </SidebarPanel>
@@ -149,7 +144,7 @@ export function Curve({paletteId = '', curveId = ''}: RouteComponentProps<{palet
           onApply={easingFunction => send({type: 'APPLY_EASING_FUNCTION', paletteId, curveId, easingFunction})}
         />
         <Separator />
-        <SidebarPanel title="Values">
+        <SidebarPanel title="数值">
           <VStack spacing={16}>
             {curve.values.map((value, index) => {
               return (
@@ -182,59 +177,8 @@ export function Curve({paletteId = '', curveId = ''}: RouteComponentProps<{palet
             })}
           </VStack>
         </SidebarPanel>
-        {/* <VStack spacing={16} style={{ padding: 16 }}>
-          <Input
-            type="text"
-            aria-label="Curve name"
-            value={curve.name}
-            onChange={event =>
-              send({
-                type: "CHANGE_CURVE_NAME",
-                paletteId,
-                curveId,
-                name: event.target.value,
-              })
-            }
-          />
-          <Button
-            onClick={() => {
-              send({ type: "DELETE_CURVE", paletteId, curveId });
-              navigate(`${routePrefix}/local/${paletteId}`);
-            }}
-          >
-            Delete curve
-          </Button>
-          {curve.values.map((value, index) => {
-            return (
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "24px 1fr",
-                  alignItems: "center",
-                }}
-              >
-                <label htmlFor={index.toString()}>{index}</label>
-                <Input
-                  type="number"
-                  id={index.toString()}
-                  value={value}
-                  onChange={event =>
-                    send({
-                      type: "CHANGE_CURVE_VALUE",
-                      paletteId,
-                      curveId,
-                      index,
-                      value: event.target.valueAsNumber || 0,
-                    })
-                  }
-                  {...ranges[curve.type]}
-                />
-              </div>
-            );
-          })}
-        </VStack> */}
         <Separator />
-        <SidebarPanel title="Linked to">
+        <SidebarPanel title="关联到">
           <VStack spacing={8}>
             {scales.map(scale => (
               <Link
