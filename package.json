@@ -44,7 +44,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build:preview": "react-scripts build",
-    "build": "PUBLIC_URL=/prism react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "prettier --check \"src/**/*.{ts,tsx}\"",
